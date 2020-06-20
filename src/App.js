@@ -5,7 +5,7 @@ import Clarifai from "clarifai";
 import Particles from "react-particles-js";
 
 import Navigation from "./components/Navigation/Navigation";
-import Logo from "./components/Logo/Logo";
+// import Logo from "./components/Logo/Logo";
 import Rank from "./components/Rank/Rank";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import FaceDetector from "./components/FaceDetector/FaceDetector";
@@ -87,18 +87,26 @@ class App extends Component {
       .catch((err) => console.log("API Error!!", err));
   };
 
+  onFaceBoxClick = (faceInfo) => {
+    console.log(faceInfo);
+  };
+
   render() {
     return (
       <div className="App">
         <Particles className="particles" params={particlesOptions} />
         <Navigation />
-        <Logo />
+        {/* <Logo /> */}
         <Rank />
         <ImageLinkForm
           onInputChange={this.onInputChange}
           onButtonSubmit={this.onButtonSubmit}
         />
-        <FaceDetector imageUrl={this.state.imageUrl} faces={this.state.faces} />
+        <FaceDetector
+          imageUrl={this.state.imageUrl}
+          faces={this.state.faces}
+          onFaceBoxClick={this.onFaceBoxClick}
+        />
       </div>
     );
   }
