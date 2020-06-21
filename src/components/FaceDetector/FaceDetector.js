@@ -3,7 +3,7 @@ import "./FaceDetector.css";
 
 const FaceDetector = ({ imageUrl, faces }) => {
   return (
-    <div className="ma" style={{ display: "flex", justifyContent: "center" }}>
+    <div className="flex justify-center mh4 mv2">
       <div className="absolute mt2">
         <img
           id="inputImage"

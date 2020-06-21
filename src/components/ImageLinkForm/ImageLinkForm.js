@@ -4,9 +4,9 @@ import "./ImageLinkForm.css";
 const ImageLinkForm = ({ onInputChange, onButtonSubmit }) => {
   return (
     <div>
-      <p className="f3 white">
+      <p className="f3 white w-75 center">
         {
-          "This app use Clarifai visual AI engine to give you individual demographic information in your picture."
+          "This app use Clarifai visual AI engine to detect faces in your picture."
         }
       </p>
       <div className="center">

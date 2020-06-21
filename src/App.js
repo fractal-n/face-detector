@@ -4,8 +4,8 @@ import "tachyons";
 import Clarifai from "clarifai";
 import Particles from "react-particles-js";
 
+import SignIn from "./components/SignIn/SignIn";
 import Navigation from "./components/Navigation/Navigation";
-// import Logo from "./components/Logo/Logo";
 import Rank from "./components/Rank/Rank";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import FaceDetector from "./components/FaceDetector/FaceDetector";
@@ -33,6 +33,7 @@ class App extends Component {
       input: "",
       imageUrl: "",
       faces: [],
+      route: "signin",
     };
   }
 
@@ -50,6 +51,8 @@ class App extends Component {
     };
   };
 
+  // This is demografic info of the face. I collected the data but don't have time to display it.
+  // It requires lots of hours to play with css, and I'm not good with that.
   calculateFaceInformation = (data) => {
     return data.data.concepts.filter(
       (concept) =>
@@ -87,26 +90,33 @@ class App extends Component {
       .catch((err) => console.log("API Error!!", err));
   };
 
-  onFaceBoxClick = (faceInfo) => {
-    console.log(faceInfo);
+  onRouteChange = (route) => {
+    this.setState({ route: route });
   };
 
   render() {
     return (
       <div className="App">
         <Particles className="particles" params={particlesOptions} />
-        <Navigation />
-        {/* <Logo /> */}
-        <Rank />
-        <ImageLinkForm
-          onInputChange={this.onInputChange}
-          onButtonSubmit={this.onButtonSubmit}
+        <Navigation
+          onRouteChange={this.onRouteChange}
+          route={this.state.route}
         />
-        <FaceDetector
-          imageUrl={this.state.imageUrl}
-          faces={this.state.faces}
-          onFaceBoxClick={this.onFaceBoxClick}
-        />
+        {this.state.route === "signin" ? (
+          <SignIn onRouteChange={this.onRouteChange} />
+        ) : (
+          <div>
+            <Rank />
+            <ImageLinkForm
+              onInputChange={this.onInputChange}
+              onButtonSubmit={this.onButtonSubmit}
+            />
+            <FaceDetector
+              imageUrl={this.state.imageUrl}
+              faces={this.state.faces}
+            />
+          </div>
+        )}
       </div>
     );
   }
