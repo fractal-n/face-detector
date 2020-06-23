@@ -37,8 +37,27 @@ class App extends Component {
       faces: [],
       route: "signin",
       isSignedIn: false,
+      user: {
+        id: "",
+        name: "",
+        email: "",
+        entries: 0,
+        joined: "",
+      },
     };
   }
+
+  loadUser = (data) => {
+    this.setState({
+      user: {
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        entries: data.entries,
+        joined: data.joined,
+      },
+    });
+  };
 
   calculateFaceLocation = (data) => {
     const clarifaiBox = data.region_info.bounding_box;
@@ -81,15 +100,27 @@ class App extends Component {
     this.setState({ input: event.target.value });
   };
 
-  onButtonSubmit = () => {
+  onPictureSubmit = () => {
     this.setState({ imageUrl: this.state.input });
     clarifai.models
       .predict(Clarifai.DEMOGRAPHICS_MODEL, this.state.input)
-      .then((response) =>
+      .then((response) => {
+        fetch("http://localhost:3000/image", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            id: this.state.user.id,
+          }),
+        })
+          .then((response) => response.json())
+          .then((count) => {
+            this.setState({ user: { ...this.state.user, entries: count } });
+          });
+        this.setState({ faces: [] });
         response.outputs[0].data.regions.forEach((region) =>
           this.displayFaceBox(this.calculateFace(region))
-        )
-      )
+        );
+      })
       .catch((err) => console.log("API Error!!", err));
   };
 
@@ -107,10 +138,10 @@ class App extends Component {
     const home = () => {
       return (
         <div>
-          <Rank />
+          <Rank name={this.state.user.name} entries={this.state.user.entries} />
           <ImageLinkForm
             onInputChange={this.onInputChange}
-            onButtonSubmit={this.onButtonSubmit}
+            onPictureSubmit={this.onPictureSubmit}
           />
           <FaceDetector
             imageUrl={this.state.imageUrl}
@@ -125,9 +156,19 @@ class App extends Component {
         case "home":
           return home();
         case "register":
-          return <Register onRouteChange={this.onRouteChange} />;
+          return (
+            <Register
+              onRouteChange={this.onRouteChange}
+              loadUser={this.loadUser}
+            />
+          );
         default:
-          return <SignIn onRouteChange={this.onRouteChange} />;
+          return (
+            <SignIn
+              onRouteChange={this.onRouteChange}
+              loadUser={this.loadUser}
+            />
+          );
       }
     };
 
