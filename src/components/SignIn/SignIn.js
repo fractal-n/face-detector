@@ -38,7 +38,8 @@ class SignIn extends Component {
             errorMsg: "email and password combination is not matched",
           });
         }
-      });
+      })
+      .catch(console.log);
   };
 
   onEnterKeyPress = (event) => {
