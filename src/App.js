@@ -1,20 +1,14 @@
 import React, { Component } from "react";
 import "./App.css";
 import "tachyons";
-import Clarifai from "clarifai";
 import Particles from "react-particles-js";
 
-// import Register from "./components/Register/Register";
 import SignIn from "./components/SignIn/SignIn";
 import Navigation from "./components/Navigation/Navigation";
 import Rank from "./components/Rank/Rank";
 import ImageLinkForm from "./components/ImageLinkForm/ImageLinkForm";
 import FaceDetector from "./components/FaceDetector/FaceDetector";
 import Register from "./components/Register/Register";
-
-const clarifai = new Clarifai.App({
-  apiKey: "2eb922025c064b108a239789a222134d",
-});
 
 const particlesOptions = {
   particles: {
@@ -104,8 +98,15 @@ class App extends Component {
 
   onPictureSubmit = () => {
     this.setState({ imageUrl: this.state.input });
-    clarifai.models
-      .predict(Clarifai.DEMOGRAPHICS_MODEL, this.state.input)
+
+    fetch("http://localhost:3000/image", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        input: this.state.input,
+      }),
+    })
+      .then((response) => response.json())
       .then((response) => {
         fetch("http://localhost:3000/image", {
           method: "PATCH",
@@ -125,7 +126,7 @@ class App extends Component {
           this.displayFaceBox(this.calculateFace(region))
         );
       })
-      .catch((err) => console.log("API Error!!", err));
+      .catch(console.log);
   };
 
   onRouteChange = (route) => {
