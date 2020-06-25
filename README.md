@@ -8,8 +8,10 @@ You can use some test users <john@gmail.com, cookies>, <jane@gmail.com, cookies>
 
 ## Tech stack
 
-ReactJS
-Tachyons
+- ReactJS
+- Tachyons
+
+Backend [face-detector-api](https://github.com/fractal-n/face-detector-api) repo
 
 ## Deployment
 
