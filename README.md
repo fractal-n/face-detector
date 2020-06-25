@@ -2,7 +2,7 @@
 
 ## About
 
-This is a small app ultilize [Clariai](https://www.clarifai.com/), a vision AI service, to detect human faces in a selected picture.
+This is a small app ultilize [Clarifai](https://www.clarifai.com/), a vision AI service, to detect human faces in a selected picture.
 
 You can use some test users <john@gmail.com, cookies>, <jane@gmail.com, cookies>
 
