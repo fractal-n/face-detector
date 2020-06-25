@@ -99,7 +99,7 @@ class App extends Component {
   onPictureSubmit = () => {
     this.setState({ imageUrl: this.state.input });
 
-    fetch(`${process.env.BACKEND_URL}/image`, {
+    fetch(`https://fractal-n-face-detector-api.herokuapp.com/image`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -108,7 +108,7 @@ class App extends Component {
     })
       .then((response) => response.json())
       .then((response) => {
-        fetch(`${process.env.BACKEND_URL}/image`, {
+        fetch(`https://fractal-n-face-detector-api.herokuapp.com/image`, {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

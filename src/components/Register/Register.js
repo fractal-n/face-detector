@@ -23,7 +23,7 @@ class Register extends Component {
   };
 
   onSubmitRegister = () => {
-    fetch(`${process.env.BACKEND_URL}/register`, {
+    fetch(`https://fractal-n-face-detector-api.herokuapp.com/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

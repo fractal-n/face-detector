@@ -19,7 +19,7 @@ class SignIn extends Component {
   };
 
   onSubmitSignIn = () => {
-    fetch(`${process.env.BACKEND_URL}/signin`, {
+    fetch(`https://fractal-n-face-detector-api.herokuapp.com/signin`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

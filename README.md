@@ -11,10 +11,6 @@ You can use some test users <john@gmail.com, cookies>, <jane@gmail.com, cookies>
 ReactJS
 Tachyons
 
-## Environment variables
-
-- BACKEND_URL
-
 ## Deployment
 
 This app is hosted on Heroku. Useful commands to work with Heroku.
