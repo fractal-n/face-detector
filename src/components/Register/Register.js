@@ -23,7 +23,7 @@ class Register extends Component {
   };
 
   onSubmitRegister = () => {
-    fetch("http://localhost:3000/register", {
+    fetch(`${process.env.BACKEND_URL}/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -40,6 +40,12 @@ class Register extends Component {
         }
       })
       .catch(console.log);
+  };
+
+  onEnterKeyPress = (event) => {
+    if (event.key === "Enter") {
+      this.onSubmitRegister();
+    }
   };
 
   render() {
@@ -82,6 +88,7 @@ class Register extends Component {
                 </label>
                 <input
                   onChange={this.onPasswordChange}
+                  onKeyPress={this.onEnterKeyPress}
                   className="b white pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100"
                   type="password"
                   name="password"

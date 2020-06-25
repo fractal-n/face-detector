@@ -18,6 +18,11 @@ const ImageLinkForm = ({ onInputChange, onPictureSubmit }) => {
           />
           <button
             onClick={onPictureSubmit}
+            onKeyPress={(event) => {
+              if (event.key === "Enter") {
+                this.onPictureSubmit();
+              }
+            }}
             className="w-20 f4 grow ph3 pv2 ml1 dib white bg-light-purple"
           >
             Detect
